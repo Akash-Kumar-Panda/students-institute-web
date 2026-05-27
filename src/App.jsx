@@ -180,7 +180,7 @@ export default function App() {
   const Navbar = () => (
     <nav style={{ background: th.navBg, backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", borderBottom: `1px solid ${th.navBorder}`, position: "sticky", top: 0, zIndex: 1000, padding: "0 20px" }}>
       <div style={{ ...wrap, display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}>
-        <div onClick={() => nav("home")} style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}>
+        <div onClick={() => nav("home")} style={{ display: "flex", alignItems: "center", gap: 4, cursor: "pointer" }}>
           <Logo size={34} />
           <div>
             <div style={{ fontFamily: SF, fontSize: 15, fontWeight: 700, color: th.text, letterSpacing: "-0.3px" }}>Students' Institute</div>
