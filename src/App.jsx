@@ -16,13 +16,14 @@ const REDBG  = "#FEE2E2";
 const TEAL   = "#2D6A2D";
 const TEALBG = "#D1FAE5";
 /* ══════════════════════════════════════════════
-   EMAILJS CONFIG — fill in your credentials below
-   Sign up free at https://www.emailjs.com
+   EMAILJS CONFIG — credentials loaded from .env
+   Copy .env.example → .env and fill in your values
+   Never hardcode secrets here — keep them in .env
 ══════════════════════════════════════════════ */
-const EMAILJS_SERVICE_ID  = "service_5efq9o1";
-const EMAILJS_TEMPLATE_ID = "template_zgvum0i";
-const EMAILJS_PUBLIC_KEY  = "lvyCh1DrQzGWZsZln";
-const INSTITUTE_EMAIL     = "akashvikashpanda@gmail.com";
+const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const INSTITUTE_EMAIL     = import.meta.env.VITE_INSTITUTE_EMAIL;
 
 };
 
