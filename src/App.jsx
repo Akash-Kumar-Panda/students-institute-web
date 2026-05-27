@@ -234,30 +234,31 @@ export default function App() {
         <div style={{ position: "absolute", bottom: -80, left: -120, width: 500, height: 500, background: "radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 65%)", borderRadius: "50%", pointerEvents: "none" }} />
         <div style={{ position: "absolute", top: "35%", right: "22%", width: 320, height: 320, background: "radial-gradient(circle, rgba(217,119,6,0.05) 0%, transparent 65%)", borderRadius: "50%", pointerEvents: "none" }} />
 
-        <div style={{ ...wrap, position: "relative", display: "grid", gridTemplateColumns: "auto 1fr", gap: 60, alignItems: "center" }}>
-          {/* Logo — floats */}
-          <div className="si-hero-logo">
-            <Logo size={165} float />
+        <div style={{ ...wrap, position: "relative" }}>
+          {/* Badge */}
+          <div className="si-hero-badge" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: dark ? "rgba(21,128,61,0.18)" : GREEN_BG, border: `1px solid ${dark ? "rgba(21,128,61,0.28)" : "rgba(21,128,61,0.2)"}`, borderRadius: 980, padding: "6px 18px", marginBottom: 28 }}>
+            <span style={{ width: 7, height: 7, borderRadius: "50%", background: GREEN, display: "inline-block" }} />
+            <span style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: GREEN }}>ICSE &amp; CBSE · Mathematics &amp; Science</span>
           </div>
 
-          {/* Text */}
-          <div>
-            <div className="si-hero-badge" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: dark ? "rgba(21,128,61,0.18)" : GREEN_BG, border: `1px solid ${dark ? "rgba(21,128,61,0.28)" : "rgba(21,128,61,0.2)"}`, borderRadius: 980, padding: "6px 18px", marginBottom: 26 }}>
-              <span style={{ width: 7, height: 7, borderRadius: "50%", background: GREEN, display: "inline-block" }} />
-              <span style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: GREEN }}>ICSE &amp; CBSE · Mathematics &amp; Science</span>
+          {/* Logo kissing h1 text */}
+          <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 22 }}>
+            <div className="si-hero-logo" style={{ flexShrink: 0 }}>
+              <Logo size={148} float />
             </div>
-
-            <h1 className="si-hero-h1a" style={{ fontFamily: SF, fontSize: 68, fontWeight: 800, color: th.text, letterSpacing: "-3px", lineHeight: 1.0, marginBottom: 0 }}>Students'</h1>
-            <h1 className="si-hero-h1b" style={{ fontFamily: SF, fontSize: 68, fontWeight: 800, color: GREEN,   letterSpacing: "-3px", lineHeight: 1.0, marginBottom: 22 }}>Institute</h1>
-
-            <p className="si-hero-body" style={{ fontFamily: SF, fontSize: 17, color: th.muted, lineHeight: 1.7, maxWidth: 480, marginBottom: 42 }}>
-              Expert coaching in Mathematics &amp; Science for Classes IV–X under ICSE &amp; CBSE boards. Small batches, personal attention, real results.
-            </p>
-
-            <div className="si-hero-btns" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <button className="si-btn-primary" onClick={() => nav("admissions")} style={btnPrimary}>Enrol Now →</button>
-              <button className="si-btn-secondary" onClick={() => nav("batches")} style={btnSecondary}>View Batches</button>
+            <div>
+              <h1 className="si-hero-h1a" style={{ fontFamily: SF, fontSize: 68, fontWeight: 800, color: th.text, letterSpacing: "-3px", lineHeight: 1.0, marginBottom: 0 }}>Students'</h1>
+              <h1 className="si-hero-h1b" style={{ fontFamily: SF, fontSize: 68, fontWeight: 800, color: GREEN,   letterSpacing: "-3px", lineHeight: 1.0, marginBottom: 0 }}>Institute</h1>
             </div>
+          </div>
+
+          <p className="si-hero-body" style={{ fontFamily: SF, fontSize: 17, color: th.muted, lineHeight: 1.7, maxWidth: 520, marginBottom: 42 }}>
+            Expert coaching in Mathematics &amp; Science for Classes IV–X under ICSE &amp; CBSE boards. Small batches, personal attention, real results.
+          </p>
+
+          <div className="si-hero-btns" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <button className="si-btn-primary" onClick={() => nav("admissions")} style={btnPrimary}>Enrol Now →</button>
+            <button className="si-btn-secondary" onClick={() => nav("batches")} style={btnSecondary}>View Batches</button>
           </div>
         </div>
 
