@@ -700,7 +700,7 @@ export default function App() {
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 18, maxWidth: 840, margin: "0 auto" }}>
             {[
-              { icon: "📍", label: "Address", value: "Cuttack, Odisha, India", color: RED },
+              { icon: "📍", label: "Address", value: "Nuasahi, Bidanasi, Cuttack, Odisha - 753014", color: RED },
               { icon: "📞", label: "Phone",   value: "+91 99376 66626",         color: GREEN },
               { icon: "✉️", label: "Email",   value: "admissions@studentsinstitute.in", color: BLUE },
               { icon: "🕐", label: "Hours",   value: "Mon – Sat, 9 AM – 7 PM", color: AMBER },
