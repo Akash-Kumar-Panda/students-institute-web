@@ -651,7 +651,6 @@ export default function App() {
             {[
               { role: "Mathematics Teacher", icon: "📐", type: "Part-time / Full-time", desc: "Classes IV–X. Strong command of ICSE & CBSE curriculum. Passion for breaking down complex problems.", color: BLUE },
               { role: "Science Teacher",     icon: "🔬", type: "Part-time / Full-time", desc: "Physics, Chemistry & Biology for Classes VI–X. Ability to make concepts visual and relatable.", color: GREEN },
-              { role: "Academic Coordinator",icon: "📋", type: "Full-time",             desc: "Manage batch schedules, parent communication, and student progress tracking.", color: AMBER },
             ].map((r, i) => (
               <Reveal key={i} delay={i * 90}>
                 <div className="si-card" style={{ background: th.card, border: `1px solid ${th.cardBorder}`, borderRadius: 20, padding: "28px 24px", boxShadow: th.cardShadow }}>
