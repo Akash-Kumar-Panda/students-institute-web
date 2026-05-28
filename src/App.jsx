@@ -674,7 +674,7 @@ export default function App() {
               <div style={{ fontSize: 36, marginBottom: 16 }}>🤝</div>
               <h3 style={{ fontFamily: SF, fontSize: 20, fontWeight: 700, color: th.text, marginBottom: 10 }}>Interested in joining us?</h3>
               <p style={{ fontFamily: SF, fontSize: 14, color: th.muted, lineHeight: 1.7, marginBottom: 28 }}>
-                Send your CV and a short note about yourself to our admissions email. We respond to every application within 48 hours.
+                Send your CV and a short note about yourself to  <strong style={{ color: GREEN }}>admissions@studentsinstitute.in</strong> — we respond to every application within 48 hours.
               </p>
               <a
                 href="mailto:admissions@studentsinstitute.in?subject=Career Application — Students' Institute"
