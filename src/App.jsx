@@ -93,7 +93,7 @@ function Logo({ size = 38 }) {
 export default function App() {
   const [dark, setDark]     = useState(false);
   const [section, setSection] = useState("home");
-  const [form, setForm]     = useState({ student_name: "", dob: "", parent_name: "", mobile: "", student_email: "", cls: "", board: "", msg: "" });
+  const [form, setForm]     = useState({ student_name: "", mobile: "", student_email: "", cls: "", board: "", msg: "" });
   const [sending, setSending] = useState(false);
   const [sent, setSent]     = useState(false);
 
@@ -156,11 +156,11 @@ export default function App() {
       await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        { student_name: form.student_name, dob: form.dob, parent_name: form.parent_name, mobile: form.mobile, student_email: form.student_email, class: form.cls, board: form.board, message: form.msg, to_email: import.meta.env.VITE_INSTITUTE_EMAIL },
+        { student_name: form.student_name, mobile: form.mobile, student_email: form.student_email, class: form.cls, board: form.board, message: form.msg, to_email: import.meta.env.VITE_INSTITUTE_EMAIL },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
       setSent(true);
-      setForm({ student_name: "", dob: "", parent_name: "", mobile: "", student_email: "", cls: "", board: "", msg: "" });
+      setForm({ student_name: "", mobile: "", student_email: "", cls: "", board: "", msg: "" });
     } catch {
       alert("Something went wrong. Please try again or call us directly.");
     } finally {
@@ -426,35 +426,25 @@ export default function App() {
                       <input required style={inp} placeholder="Ravi Kumar" value={form.student_name} onChange={e => setForm(f => ({ ...f, student_name: e.target.value }))} />
                     </div>
                     <div>
-                      <label style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: th.muted, display: "block", marginBottom: 7 }}>Date of Birth *</label>
-                      <input required type="date" style={inp} value={form.dob} onChange={e => setForm(f => ({ ...f, dob: e.target.value }))} />
-                    </div>
-                  </div>
-                  <div className="si-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-                    <div>
-                      <label style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: th.muted, display: "block", marginBottom: 7 }}>Parent / Guardian Name *</label>
-                      <input required style={inp} placeholder="Mr. Kumar" value={form.parent_name} onChange={e => setForm(f => ({ ...f, parent_name: e.target.value }))} />
-                    </div>
-                    <div>
                       <label style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: th.muted, display: "block", marginBottom: 7 }}>Mobile *</label>
                       <input required style={inp} placeholder="9XXXXXXXXX" value={form.mobile} onChange={e => setForm(f => ({ ...f, mobile: e.target.value }))} />
                     </div>
                   </div>
                   <div>
-                    <label style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: th.muted, display: "block", marginBottom: 7 }}>Student Email (optional)</label>
+                    <label style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: th.muted, display: "block", marginBottom: 7 }}>Student Email <span style={{ fontWeight: 400, color: th.muted }}>(optional)</span></label>
                     <input type="email" style={inp} placeholder="ravi@example.com" value={form.student_email} onChange={e => setForm(f => ({ ...f, student_email: e.target.value }))} />
                   </div>
                   <div className="si-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                     <div>
-                      <label style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: th.muted, display: "block", marginBottom: 7 }}>Class *</label>
-                      <select required style={inp} value={form.cls} onChange={e => setForm(f => ({ ...f, cls: e.target.value }))}>
+                      <label style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: th.muted, display: "block", marginBottom: 7 }}>Class <span style={{ fontWeight: 400 }}>(optional)</span></label>
+                      <select style={inp} value={form.cls} onChange={e => setForm(f => ({ ...f, cls: e.target.value }))}>
                         <option value="">Select class</option>
                         {["IV","V","VI","VII","VIII","IX","X"].map(c => <option key={c} value={c}>Class {c}</option>)}
                       </select>
                     </div>
                     <div>
-                      <label style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: th.muted, display: "block", marginBottom: 7 }}>Board *</label>
-                      <select required style={inp} value={form.board} onChange={e => setForm(f => ({ ...f, board: e.target.value }))}>
+                      <label style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: th.muted, display: "block", marginBottom: 7 }}>Board <span style={{ fontWeight: 400 }}>(optional)</span></label>
+                      <select style={inp} value={form.board} onChange={e => setForm(f => ({ ...f, board: e.target.value }))}>
                         <option value="">Select board</option>
                         <option value="ICSE">ICSE</option>
                         <option value="CBSE">CBSE</option>
@@ -462,7 +452,7 @@ export default function App() {
                     </div>
                   </div>
                   <div>
-                    <label style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: th.muted, display: "block", marginBottom: 7 }}>Message (optional)</label>
+                    <label style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: th.muted, display: "block", marginBottom: 7 }}>Message <span style={{ fontWeight: 400 }}>(optional)</span></label>
                     <textarea style={{ ...inp, resize: "vertical", minHeight: 80 }} placeholder="Any specific questions or requirements..." value={form.msg} onChange={e => setForm(f => ({ ...f, msg: e.target.value }))} />
                   </div>
                   <button type="submit" className="si-btn-p" disabled={sending} style={{ ...btnP, marginTop: 6, opacity: sending ? .7 : 1, justifyContent: "center" }}>
