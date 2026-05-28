@@ -42,8 +42,9 @@ const STYLES = `
     box-shadow: 0 0 0 3px rgba(21,128,61,.12) !important;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 720px) {
     .si-nav-links { display: none !important; }
+    .si-hamburger { display: flex !important; }
     .si-hero-stats { flex-wrap: wrap !important; }
     .si-form-row { grid-template-columns: 1fr !important; }
   }
@@ -96,6 +97,8 @@ export default function App() {
   const [form, setForm]     = useState({ student_name: "", mobile: "", student_email: "", cls: "", board: "", msg: "" });
   const [sending, setSending] = useState(false);
   const [sent, setSent]     = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [errors, setErrors]   = useState({});
 
   const nav = (id) => {
     setSection(id);
@@ -103,6 +106,22 @@ export default function App() {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 40);
+  };
+
+  /* ── validation ── */
+  const validate = (field, value) => {
+    let msg = "";
+    if (field === "student_name" && value.trim().length < 2) msg = "Enter a valid name";
+    if (field === "mobile" && !/^[6-9]\d{9}$/.test(value.trim())) msg = "Enter a valid 10-digit Indian mobile number";
+    if (field === "student_email" && value && !/^[^@]+@[^@]+\.[^@]+$/.test(value)) msg = "Enter a valid email address";
+    setErrors(e => ({ ...e, [field]: msg }));
+    return msg === "";
+  };
+  const validateAll = () => {
+    const n = validate("student_name", form.student_name);
+    const m = validate("mobile", form.mobile);
+    const e = form.student_email ? validate("student_email", form.student_email) : true;
+    return n && m && e;
   };
 
   /* ── theme ── */
@@ -151,6 +170,7 @@ export default function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateAll()) return;
     setSending(true);
     try {
       await emailjs.send(
@@ -193,31 +213,110 @@ export default function App() {
             </div>
           </div>
 
-          {/* Links */}
-          <div className="si-nav-links" style={{ display: "flex", alignItems: "center", gap: 22 }}>
-            {NAV_LINKS.filter(l => l.id !== "home").map(l => (
-              <span key={l.id} onClick={() => nav(l.id)} style={{
-                fontFamily: SF, fontSize: 13, fontWeight: 500, cursor: "pointer",
-                color: section === l.id ? GREEN : th.muted,
-                transition: "color .2s",
-              }}>{l.label}</span>
-            ))}
-            {/* Dark toggle */}
+          {/* Right side wrapper — always visible */}
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+
+            {/* Links (desktop only — hidden on mobile via CSS) */}
+            <div className="si-nav-links" style={{ display: "flex", alignItems: "center", gap: 22 }}>
+              {NAV_LINKS.filter(l => l.id !== "home").map(l => (
+                <span key={l.id} onClick={() => { nav(l.id); setMenuOpen(false); }} style={{
+                  fontFamily: SF, fontSize: 13, fontWeight: 500, cursor: "pointer",
+                  color: section === l.id ? GREEN : th.muted,
+                  transition: "color .2s",
+                }}>{l.label}</span>
+              ))}
+            </div>
+
+            {/* Sun / Moon toggle — always visible */}
             <button
               onClick={() => setDark(d => !d)}
               aria-label="Toggle dark mode"
               style={{
-                background: th.bgAlt, border: `1px solid ${th.border}`,
-                borderRadius: 20, width: 38, height: 22, cursor: "pointer",
-                display: "flex", alignItems: "center", padding: 3,
-                justifyContent: dark ? "flex-end" : "flex-start", transition: "all .3s",
+                background: dark ? "#232323" : "#EBEBEB",
+                border: "none", borderRadius: 40, width: 72, height: 36,
+                cursor: "pointer", display: "flex", alignItems: "center",
+                padding: 4, gap: 4, transition: "background .35s", flexShrink: 0,
               }}
             >
-              <div style={{ width: 16, height: 16, borderRadius: "50%", background: dark ? GREEN : th.muted, transition: "all .3s" }} />
+              {/* Sun */}
+              <div style={{
+                width: 28, height: 28, borderRadius: "50%", flexShrink: 0,
+                background: dark ? "transparent" : "#F59E0B",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                transition: "background .35s",
+                color: dark ? "#555" : "#fff",
+                boxShadow: dark ? "none" : "0 2px 8px rgba(245,158,11,.45)",
+              }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <circle cx="12" cy="12" r="5"/>
+                  <line x1="12" y1="2"    x2="12" y2="4"/>
+                  <line x1="12" y1="20"   x2="12" y2="22"/>
+                  <line x1="4.93" y1="4.93"  x2="6.34" y2="6.34"/>
+                  <line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/>
+                  <line x1="2"  y1="12"   x2="4"  y2="12"/>
+                  <line x1="20" y1="12"   x2="22" y2="12"/>
+                  <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/>
+                  <line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/>
+                </svg>
+              </div>
+              {/* Moon */}
+              <div style={{
+                width: 28, height: 28, borderRadius: "50%", flexShrink: 0,
+                background: dark ? "#5A5A60" : "transparent",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                transition: "background .35s",
+                color: dark ? "#fff" : "#aaa",
+                boxShadow: dark ? "0 2px 8px rgba(0,0,0,.4)" : "none",
+              }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+              </div>
             </button>
-          </div>
+
+            {/* Hamburger — mobile only, always visible */}
+            <button
+              className="si-hamburger"
+              onClick={() => setMenuOpen(m => !m)}
+              aria-label="Open menu"
+              style={{
+                display: "none", background: "none", border: "none",
+                cursor: "pointer", padding: 4, flexDirection: "column",
+                gap: 5, alignItems: "center", justifyContent: "center",
+              }}
+            >
+              <span style={{ display: "block", width: 20, height: 2, background: th.text, borderRadius: 2, transition: "all .25s", transform: menuOpen ? "rotate(45deg) translate(5px,5px)" : "none" }} />
+              <span style={{ display: "block", width: 20, height: 2, background: th.text, borderRadius: 2, transition: "all .25s", opacity: menuOpen ? 0 : 1 }} />
+              <span style={{ display: "block", width: 20, height: 2, background: th.text, borderRadius: 2, transition: "all .25s", transform: menuOpen ? "rotate(-45deg) translate(5px,-5px)" : "none" }} />
+            </button>
+
+          </div>{/* end right-side wrapper */}
         </div>
       </nav>
+
+      {/* ━━━━ MOBILE DROPDOWN ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+      {menuOpen && (
+        <div style={{
+          position: "fixed", top: 54, left: 0, right: 0, zIndex: 300,
+          background: dark ? "#111111" : "#ffffff",
+          borderBottom: `1px solid ${th.border}`,
+          boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
+          display: "flex", flexDirection: "column",
+        }}>
+          {NAV_LINKS.filter(l => l.id !== "home").map(l => (
+            <span key={l.id} onClick={() => { nav(l.id); setMenuOpen(false); }} style={{
+              fontFamily: SF, fontSize: 16, fontWeight: 500, cursor: "pointer",
+              color: section === l.id ? GREEN : th.text,
+              padding: "14px 24px",
+              borderBottom: `1px solid ${th.border}`,
+              display: "flex", alignItems: "center", gap: 10,
+            }}>
+              {section === l.id && <span style={{ width: 5, height: 5, borderRadius: "50%", background: GREEN, display: "inline-block" }} />}
+              {l.label}
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* ━━━━ HERO ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <section id="home" style={{ position: "relative", paddingTop: 138, paddingBottom: 80, overflow: "hidden" }}>
@@ -423,16 +522,38 @@ export default function App() {
                   <div className="si-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                     <div>
                       <label style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: th.muted, display: "block", marginBottom: 7 }}>Student Name *</label>
-                      <input required style={inp} placeholder="Ravi Kumar" value={form.student_name} onChange={e => setForm(f => ({ ...f, student_name: e.target.value }))} />
+                      <input
+                        required style={{ ...inp, borderColor: errors.student_name ? "#DC2626" : form.student_name.trim().length >= 2 ? "#15803D" : th.inputBorder }}
+                        placeholder="Ravi Kumar"
+                        value={form.student_name}
+                        onChange={e => { setForm(f => ({ ...f, student_name: e.target.value })); if (errors.student_name) validate("student_name", e.target.value); }}
+                        onBlur={e => validate("student_name", e.target.value)}
+                      />
+                      {errors.student_name && <p style={{ fontFamily: SF, fontSize: 11, color: "#DC2626", marginTop: 4 }}>⚠ {errors.student_name}</p>}
                     </div>
                     <div>
                       <label style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: th.muted, display: "block", marginBottom: 7 }}>Mobile *</label>
-                      <input required style={inp} placeholder="9XXXXXXXXX" value={form.mobile} onChange={e => setForm(f => ({ ...f, mobile: e.target.value }))} />
+                      <input
+                        required style={{ ...inp, borderColor: errors.mobile ? "#DC2626" : /^[6-9]\d{9}$/.test(form.mobile.trim()) ? "#15803D" : th.inputBorder }}
+                        placeholder="9XXXXXXXXX"
+                        value={form.mobile}
+                        onChange={e => { setForm(f => ({ ...f, mobile: e.target.value })); if (errors.mobile) validate("mobile", e.target.value); }}
+                        onBlur={e => validate("mobile", e.target.value)}
+                      />
+                      {errors.mobile && <p style={{ fontFamily: SF, fontSize: 11, color: "#DC2626", marginTop: 4 }}>⚠ {errors.mobile}</p>}
                     </div>
                   </div>
                   <div>
                     <label style={{ fontFamily: SF, fontSize: 12, fontWeight: 600, color: th.muted, display: "block", marginBottom: 7 }}>Student Email <span style={{ fontWeight: 400, color: th.muted }}>(optional)</span></label>
-                    <input type="email" style={inp} placeholder="ravi@example.com" value={form.student_email} onChange={e => setForm(f => ({ ...f, student_email: e.target.value }))} />
+                    <input
+                      type="email"
+                      style={{ ...inp, borderColor: errors.student_email ? "#DC2626" : form.student_email && !errors.student_email ? "#15803D" : th.inputBorder }}
+                      placeholder="ravi@example.com"
+                      value={form.student_email}
+                      onChange={e => { setForm(f => ({ ...f, student_email: e.target.value })); if (errors.student_email) validate("student_email", e.target.value); }}
+                      onBlur={e => e.target.value && validate("student_email", e.target.value)}
+                    />
+                    {errors.student_email && <p style={{ fontFamily: SF, fontSize: 11, color: "#DC2626", marginTop: 4 }}>⚠ {errors.student_email}</p>}
                   </div>
                   <div className="si-form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                     <div>
