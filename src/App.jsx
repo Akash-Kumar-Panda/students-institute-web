@@ -700,16 +700,16 @@ export default function App() {
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 18, maxWidth: 840, margin: "0 auto" }}>
             {[
-              { icon: "📍", label: "Address", value: "Nuasahi, Bidanasi, Cuttack, Odisha - 753014", color: RED },
+              { icon: "📍", label: "Address", value: "Nuasahi, Bidanasi, Cuttack, Odisha - 753014", color: RED, link: "https://share.google/hF0Nt9hrGQO276CxG" },
               { icon: "📞", label: "Phone",   value: "+91 99376 66626",         color: GREEN },
               { icon: "✉️", label: "Email",   value: "admissions@studentsinstitute.in", color: BLUE },
               { icon: "🕐", label: "Hours",   value: "Mon – Sat, 9 AM – 7 PM", color: AMBER },
             ].map((c, i) => (
               <Reveal key={i} delay={i * 80}>
-                <div className="si-card" style={{ background: th.card, border: `1px solid ${th.cardBorder}`, borderRadius: 18, padding: "28px 20px", boxShadow: th.cardShadow, textAlign: "center" }}>
+                <div className="si-card" onClick={() => c.link && window.open(c.link, "_blank")} style={{ background: th.card, border: `1px solid ${th.cardBorder}`, borderRadius: 18, padding: "28px 20px", boxShadow: th.cardShadow, textAlign: "center", cursor: c.link ? "pointer" : "default" }}>
                   <div style={{ fontSize: 30, marginBottom: 14 }}>{c.icon}</div>
                   <div style={{ fontFamily: SF, fontSize: 11, fontWeight: 700, color: c.color, textTransform: "uppercase", letterSpacing: ".07em", marginBottom: 8 }}>{c.label}</div>
-                  <div style={{ fontFamily: SF, fontSize: 13, color: th.text, fontWeight: 500, lineHeight: 1.5 }}>{c.value}</div>
+                  <div style={{ fontFamily: SF, fontSize: 13, color: c.link ? c.color : th.text, fontWeight: 500, lineHeight: 1.5, textDecoration: c.link ? "underline" : "none" }}>{c.value}</div>
                 </div>
               </Reveal>
             ))}
