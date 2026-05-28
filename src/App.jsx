@@ -165,6 +165,7 @@ export default function App() {
     { id: "studentPortal",label: "Student Portal" },
     { id: "admissions",   label: "Admissions" },
     { id: "courses",      label: "Courses" },
+    { id: "careers",      label: "Careers" },
     { id: "contact",      label: "Contact" },
   ];
 
@@ -627,6 +628,62 @@ export default function App() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ━━━━ CAREERS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+      <section id="careers" style={{ background: th.bg, padding: "88px 0" }}>
+        <div style={W}>
+          <Reveal>
+            <div style={{ textAlign: "center", marginBottom: 60 }}>
+              <p style={{ fontFamily: SF, fontSize: 12, fontWeight: 700, color: GREEN, letterSpacing: ".1em", textTransform: "uppercase", marginBottom: 12 }}>Join the Team</p>
+              <h2 style={{ fontFamily: SF, fontSize: "clamp(28px,5vw,46px)", fontWeight: 800, color: th.text, letterSpacing: "-1.5px" }}>
+                Teach at <span style={{ color: GREEN }}>Students' Institute</span>
+              </h2>
+              <p style={{ fontFamily: SF, fontSize: 15, color: th.muted, marginTop: 16, maxWidth: 520, margin: "16px auto 0" }}>
+                We're always looking for passionate educators who believe every student deserves individual attention.
+              </p>
+            </div>
+          </Reveal>
+
+          {/* Open roles */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: 20, marginBottom: 52 }}>
+            {[
+              { role: "Mathematics Teacher", icon: "📐", type: "Part-time / Full-time", desc: "Classes IV–X. Strong command of ICSE & CBSE curriculum. Passion for breaking down complex problems.", color: BLUE },
+              { role: "Science Teacher",     icon: "🔬", type: "Part-time / Full-time", desc: "Physics, Chemistry & Biology for Classes VI–X. Ability to make concepts visual and relatable.", color: GREEN },
+              { role: "Academic Coordinator",icon: "📋", type: "Full-time",             desc: "Manage batch schedules, parent communication, and student progress tracking.", color: AMBER },
+            ].map((r, i) => (
+              <Reveal key={i} delay={i * 90}>
+                <div className="si-card" style={{ background: th.card, border: `1px solid ${th.cardBorder}`, borderRadius: 20, padding: "28px 24px", boxShadow: th.cardShadow }}>
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: 16, marginBottom: 14 }}>
+                    <div style={{ width: 48, height: 48, borderRadius: 14, background: r.color + "18", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>{r.icon}</div>
+                    <div>
+                      <h3 style={{ fontFamily: SF, fontSize: 16, fontWeight: 700, color: th.text, marginBottom: 4 }}>{r.role}</h3>
+                      <span style={{ display: "inline-block", background: r.color + "15", border: `1px solid ${r.color}30`, color: r.color, fontFamily: SF, fontSize: 11, fontWeight: 600, borderRadius: 980, padding: "2px 10px" }}>{r.type}</span>
+                    </div>
+                  </div>
+                  <p style={{ fontFamily: SF, fontSize: 13, color: th.muted, lineHeight: 1.65 }}>{r.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* Apply CTA */}
+          <Reveal delay={100}>
+            <div style={{ background: dark ? "#1C1C1E" : "#F5F5F7", border: `1px solid ${th.cardBorder}`, borderRadius: 24, padding: "40px 44px", maxWidth: 640, margin: "0 auto", textAlign: "center" }}>
+              <div style={{ fontSize: 36, marginBottom: 16 }}>🤝</div>
+              <h3 style={{ fontFamily: SF, fontSize: 20, fontWeight: 700, color: th.text, marginBottom: 10 }}>Interested in joining us?</h3>
+              <p style={{ fontFamily: SF, fontSize: 14, color: th.muted, lineHeight: 1.7, marginBottom: 28 }}>
+                Send your CV and a short note about yourself to our admissions email. We respond to every application within 48 hours.
+              </p>
+              <a
+                href="mailto:admissions@studentsinstitute.in?subject=Career Application — Students' Institute"
+                style={{ ...btnP, textDecoration: "none", display: "inline-flex" }}
+              >
+                Send Your CV →
+              </a>
+            </div>
+          </Reveal>
         </div>
       </section>
 
